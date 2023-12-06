@@ -1,6 +1,7 @@
 const axios = require('./axios.js');
 const express = require('express')
 const app = express()
+const path = require('path')
 const PORT = 80
 require('dotenv').config(); 
 getForecast = require('./forecast.js')
@@ -34,12 +35,22 @@ async function ForecastAndDestructure() {
 
 ForecastAndDestructure();
 
-
+app.set('view engine', 'hbs')
+app.use(express.static(path.join(__dirname, './public')))
 
 app.get('/', (req, response) => {
-    response.send('Hello')
+    response.render('index', {
+        title: 'Weather',
+        page: 'Welcome Page'
+    })
 })
 
+app.get('/weather', (req, response) => {
+    response.render('weather', {
+        title: 'Weather',
+        page: 'Weather Page'
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`)
