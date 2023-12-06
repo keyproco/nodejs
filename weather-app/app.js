@@ -1,4 +1,7 @@
 const axios = require('./axios.js');
+const express = require('express')
+const app = express()
+const PORT = 80
 require('dotenv').config(); 
 getForecast = require('./forecast.js')
 
@@ -33,3 +36,11 @@ ForecastAndDestructure();
 
 
 
+app.get('/', (req, response) => {
+    response.send('Hello')
+})
+
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on ${PORT}`)
+})
